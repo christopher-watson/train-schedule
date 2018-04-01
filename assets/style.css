@@ -1,0 +1,35 @@
+.top-container{
+  height: 30vh;
+  background: #10264B;
+  background-image: linear-gradient(rgba(16, 38, 75, 0.5), rgba(255, 255, 255, 0.5)),
+                    url('./train-yard.jpg');
+  border-radius: 5px;
+  background-size: 100%;
+}
+
+.header-area{
+  margin-left: auto;
+  margin-right: auto;
+  background: none;
+}
+
+.jumbo-text{
+  font-family: 'Bungee Shade';
+  font-size: 70px;
+  color: white;
+  text-shadow: 3px 3px 5px #10264B;
+}
+
+.header-color{
+  background: #10264B;
+}
+
+.button-color{
+  background: #10264B;
+  border-color: #10264B;
+}
+
+.button-color:hover{
+  background: #10264B90;
+  border-color: #10264B90;
+}

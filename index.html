@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bungee+Shade">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./assets/style.css" class="css">
+</head>
+
+<body>
+  <div class="container top-container mb-5">
+    <div class="row">
+      <div class="jumbotron header-area">
+        <p class="jumbo-text">Train Schedule</p>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid bottom-container">
+    <div class="row">
+      <div class="col-4 mr-4 ml-4">
+        <div class="card">
+          <div class="card-header header-color text-light">
+            Add Train
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <label for="train-time">Train Name</label>
+                <input type="text" class="form-control" id="train-time-input" placeholder="North Jersey Coast">
+              </div>
+              <div class="form-group">
+                <label for="train-destination">Destination</label>
+                <input type="text" class="form-control" id="train-destination-input" placeholder="Red Bank">
+              </div>
+              <div class="form-group">
+                <label for="first-train-time">First Train Time</label>
+                <input type="text" class="form-control" id="first-train-time-input" placeholder="05:00">
+                <small class="text-muted">Enter in Militairy Time</small>
+              </div>
+              <div class="form-group">
+                <label for="train-frequency">Frequency</label>
+                <input type="text" class="form-control" id="train-frequency-input" placeholder="60">
+                <small class="text-muted">Enter in Minutes</small>
+              </div>
+              <button type="submit" class="btn btn-primary button-color" id="add-train-submit-button">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-7">
+        <div class="card">
+          <div class="card-header header-color text-light">
+            Current Train Schedule
+          </div>
+          <div class="card-body">
+              <table class="table">
+                  <thead class="thead-light">
+                      <th scope="col">Train Name</th>
+                      <th scope="col">Destination</th>
+                      <th scope="col">Frequency (Min)</th>
+                      <th scope="col">Next Arrival</th>
+                      <th scope="col">Minutes Away</th>
+                  </thead>
+                  <tbody>
+                    <!-- TABLE ROWS WITH TRAIN INFO // DYNAMIC -->
+                  </tbody>
+                </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <script src="./assets/script.js"></script>
+</body>
+
+</html>
