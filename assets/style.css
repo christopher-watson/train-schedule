@@ -43,3 +43,7 @@
  color: grey;
  opacity: .4;
 }
+
+.delete-train-button{
+  border-radius: 20px;
+}

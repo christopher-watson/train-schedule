@@ -22,6 +22,7 @@ var frequency;
 
 var nextTrainTime;
 var timeTilNext;
+var rowNum = 0;
 
 // On Submit Button Click
 $("#add-train-submit-button").on("click", function (event) {
@@ -96,17 +97,54 @@ database.ref().on("child_added", function(snapshot){
   var freqDisplay = frequency;
   var nextArrDisplay = nextTrainTime;
   var minAwayDisplay = timeTilNext;
+  var dateAddedID = sv.dateAdded;
 
   var tr = $("<tr>");
+  tr.attr('id', 'row' + rowNum);
   var td1 = $("<td>").text(tNameDisplay);
   var td2 = $("<td>").text(destDisplay);
-  var td3 = $("<td class=text-center>").text(freqDisplay);
-  var td4 = $("<td class=text-center>").text(nextArrDisplay);
-  var td5 = $("<td class=text-center>").text(minAwayDisplay);
-  // var td6 = $("<td class=text-center>").text();
-  tr.append(td1, td2, td3, td4, td5);
+  var td3 = $("<td>").text(freqDisplay);
+  td3.addClass('text-center');
+  var td4 = $("<td>").text(nextArrDisplay);
+  td4.addClass('text-center');
+  var td5 = $("<td>").text(minAwayDisplay);
+  td5.addClass('text-center');
+  var td6 = $("<td>");
+  td6.addClass('text-center');
+  var deleteButton = $("<button>");
+  deleteButton.attr('type', 'submit');
+  deleteButton.attr('class', 'btn btn-primary button-color delete-train-button');
+  deleteButton.html('<i class="fas fa-minus"></i>');
+  deleteButton.attr('id', rowNum);
+  deleteButton.attr('onClick', '(this.id)');
+  deleteButton.attr('date-added', dateAddedID);
+  td6.append(deleteButton);
+  
+  tr.append(td1, td2, td3, td4, td5, td6);
   $("#train-data-area").append(tr);
+  rowNum++;
 
 }, function (errorObject) {
   console.log("Errors handled: " + errorObject.code);
 });
+
+//Delete Row
+$(document).on("click", ".delete-train-button", rowDelete);
+
+function rowDelete(clickedId){
+  console.log('clicked: ' + clickedId.currentTarget.id);
+  console.log('date-added: ' + $(this).attr("date-added"));
+  var thisRow = (clickedId.currentTarget.id);
+  // $('#row'+thisRow).remove();  
+  var dateAddedKey = $(this).attr('date-added');
+  
+  var dateAddedRef = firebase.database().ref("train-schedule/dateAdded");
+  var key = dateAddedRef.key; 
+  // var key = dateAddedRef.child("train-schedule/dateAdded").key;
+  console.log('key: ' + key);
+
+  firebase.database().ref("movies").child(key).remove();
+
+
+}
+
