@@ -9,13 +9,19 @@ var config = {
 };
 firebase.initializeApp(config);
 
-
 // Variables
 var database = firebase.database();
-var trainName = "";
-var destination = "";
-var trainTime = 0;
-var frequency = "";
+// var trainName = "";
+// var destination = "";
+// var trainTime = 0;
+// var frequency = "";
+var trainName;
+var destination;
+var trainTime;
+var frequency;
+
+var nextTrainTime;
+var timeTilNext;
 
 // On Submit Button Click
 $("#add-train-submit-button").on("click", function (event) {
@@ -45,42 +51,62 @@ $("#add-train-submit-button").on("click", function (event) {
   $("#train-frequency-input").val('');
 });
 
-// Update DB
+// Get Next Train Time
+function findNextTrain(){
+  //Train frequency from input
+  var trainFrequency = frequency;
+  //First train time from input
+  var firstTrainTime = trainTime;
+  //First train time one year ago
+  var newFirstTime = moment(firstTrainTime, "HH:mm").subtract(1, "years");
+  console.log("newFirstTime: " + newFirstTime);
+  //Current time
+  var currTime = moment();
+  console.log("currTime: " + moment(currTime).format("hh:mm"));
+  //Time difference between now and the first train a year ago
+  var timeDiff = moment().diff(moment(newFirstTime), "minutes");
+  console.log("timeDiff: " + timeDiff);
+  //Remainder of time left over between one year ago and train frequency
+  var timeLeft = timeDiff % trainFrequency;
+  console.log("timeLeft: " + timeLeft);
+  //Train frequency minus time remainder
+  timeTilNext = (trainFrequency - timeLeft);
+  console.log("timeTilNext: " + timeTilNext);
+  //Next train time
+  nextTrainTime = moment().add(timeTilNext, "minutes").format("hh:mm");
+  console.log("nextTrainTime: " + nextTrainTime);
+}
+
+// Update Table
 database.ref().on("child_added", function(snapshot){
+  
   var sv = snapshot.val();
-
-
   console.log("Database Info {");
   console.log(sv.name);
   console.log(sv.dest);
   console.log(sv.time);
   console.log(sv.freq);
   console.log(sv.dateAdded);
-  console.log("} Database Info {");
+  console.log("} Database Info");
+  
+  findNextTrain();
 
-  // Update Table
-  var nameDisplay = sv.name;
+  var tNameDisplay = sv.name;
   var destDisplay = sv.dest;
-  var freqDisplay = sv.time;
-  var nextDisplay = sv.rate;
-  var minDisplay = sv.rate;
+  var freqDisplay = frequency;
+  var nextArrDisplay = nextTrainTime;
+  var minAwayDisplay = timeTilNext;
 
-  //Get num of months since start date
-  var totalMonths = moment().diff(moment(startDateDisplay, 'DD/MM/YY'), 'months');
-  var totalRate = parseInt(totalMonths * parseInt(monthlyRateDisplay));
-
-  // var $tbody = $("tbody");
   var tr = $("<tr>");
-  var tdName = $("<td>").text(nameDisplay);
-  var tdRole = $("<td>").text(roleDisplay);
-  var tdStart = $("<td class=text-center>").text(startDateDisplay);
-  var tdMonthWork = $("<td class=text-center>").text(totalMonths);
-  var tdMonthRate = $("<td class=text-center>").text("$" + monthlyRateDisplay);
-  var tdTotalBill = $("<td class=text-center>").text("$" + totalRate);
-  tr.append(tdName, tdRole, tdStart, tdMonthWork, tdMonthRate, tdTotalBill);
-  $("#employee-data").append(tr);
+  var td1 = $("<td>").text(tNameDisplay);
+  var td2 = $("<td>").text(destDisplay);
+  var td3 = $("<td class=text-center>").text(freqDisplay);
+  var td4 = $("<td class=text-center>").text(nextArrDisplay);
+  var td5 = $("<td class=text-center>").text(minAwayDisplay);
+  // var td6 = $("<td class=text-center>").text();
+  tr.append(td1, td2, td3, td4, td5);
+  $("#train-data-area").append(tr);
 
-  // Handle the errors
 }, function (errorObject) {
   console.log("Errors handled: " + errorObject.code);
 });

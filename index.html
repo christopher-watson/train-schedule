@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Title</title>
+  <title>Train Schedule</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -22,7 +22,7 @@
   </div>
   <div class="container-fluid bottom-container">
     <div class="row">
-      <div class="col-4 mr-4 ml-4">
+      <div class="col-3 mr-4 ml-4">
         <div class="card">
           <div class="card-header header-color text-light">
             Add Train
@@ -44,7 +44,7 @@
               </div>
               <div class="form-group">
                 <label for="train-frequency">Frequency</label>
-                <input type="text" class="form-control" id="train-frequency-input" placeholder="60">
+                <input type="text" class="form-control" id="train-frequency-input" placeholder="59">
                 <small class="text-muted">Enter in Minutes</small>
               </div>
               <button type="submit" class="btn btn-primary button-color" id="add-train-submit-button">Submit</button>
@@ -52,7 +52,7 @@
           </div>
         </div>
       </div>
-      <div class="col-7">
+      <div class="col-8">
         <div class="card">
           <div class="card-header header-color text-light">
             Current Train Schedule
@@ -65,8 +65,10 @@
                       <th scope="col">Frequency (Min)</th>
                       <th scope="col">Next Arrival</th>
                       <th scope="col">Minutes Away</th>
+                      <th scope="col">Delete Train</th>
                   </thead>
-                  <tbody>
+                  <tbody id="train-data-area">
+                    <tr></tr>
                     <!-- TABLE ROWS WITH TRAIN INFO // DYNAMIC -->
                   </tbody>
                 </table>
@@ -80,6 +82,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <script src="./assets/script.js"></script>
 </body>
 
