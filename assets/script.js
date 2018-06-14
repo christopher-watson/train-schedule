@@ -135,7 +135,7 @@ function rowDelete(clickedId){
   console.log('clicked: ' + clickedId.currentTarget.id);
   console.log('date-added: ' + $(this).attr("date-added"));
   var thisRow = (clickedId.currentTarget.id);
-  // $('#row'+thisRow).remove();  
+  $('#row'+thisRow).remove();  
   var dateAddedKey = $(this).attr('date-added');
   
   var dateAddedRef = firebase.database().ref("train-schedule/dateAdded");
